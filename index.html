@@ -102,12 +102,23 @@
                 <a href="#" data-target="honors" class="text-gray-600 hover:text-main-blue transition duration-150">荣誉</a>
                 <a href="#" data-target="contact" class="px-4 py-2 rounded-full bg-main-blue text-white hover:bg-main-blue-dark transition duration-150">联系我</a>
             </nav>
-            <!-- Mobile Menu Placeholder -->
-            <button class="md:hidden p-2 rounded-md hover:bg-gray-100 text-gray-700">
+            <!-- Mobile Menu Button -->
+            <button id="mobile-menu-button" class="md:hidden p-2 rounded-md hover:bg-gray-100 text-gray-700 focus:outline-none">
                 <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
                     <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16m-7 6h7" />
                 </svg>
             </button>
+        </div>
+        <!-- Mobile Menu -->
+        <div id="mobile-menu" class="md:hidden hidden bg-white border-t border-gray-200">
+            <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-3 space-y-2">
+                <a href="#" data-target="about" class="block py-2 px-3 rounded-md text-base font-medium text-gray-600 hover:text-main-blue hover:bg-gray-50 transition duration-150">关于我</a>
+                <a href="#" data-target="skills" class="block py-2 px-3 rounded-md text-base font-medium text-gray-600 hover:text-main-blue hover:bg-gray-50 transition duration-150">技能栈</a>
+                <a href="#" data-target="experience" class="block py-2 px-3 rounded-md text-base font-medium text-gray-600 hover:text-main-blue hover:bg-gray-50 transition duration-150">经历</a>
+                <a href="#" data-target="portfolio" class="block py-2 px-3 rounded-md text-base font-medium text-gray-600 hover:text-main-blue hover:bg-gray-50 transition duration-150">作品集</a>
+                <a href="#" data-target="honors" class="block py-2 px-3 rounded-md text-base font-medium text-gray-600 hover:text-main-blue hover:bg-gray-50 transition duration-150">荣誉</a>
+                <a href="#" data-target="contact" class="block py-2 px-3 rounded-md text-base font-medium bg-main-blue text-white hover:bg-main-blue-dark transition duration-150">联系我</a>
+            </div>
         </div>
     </header>
 
@@ -881,6 +892,37 @@
                 });
             });
 
+            // --- Mobile Menu Logic ---
+            const mobileMenuButton = document.getElementById('mobile-menu-button');
+            const mobileMenu = document.getElementById('mobile-menu');
+            
+            if (mobileMenuButton && mobileMenu) {
+                mobileMenuButton.addEventListener('click', () => {
+                    mobileMenu.classList.toggle('hidden');
+                    // 切换菜单图标
+                    const svg = mobileMenuButton.querySelector('svg');
+                    if (mobileMenu.classList.contains('hidden')) {
+                        // 显示菜单图标
+                        svg.innerHTML = '<path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16m-7 6h7" />';
+                    } else {
+                        // 显示关闭图标
+                        svg.innerHTML = '<path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12" />';
+                    }
+                });
+                
+                // 点击移动菜单链接后关闭菜单
+                const mobileMenuLinks = mobileMenu.querySelectorAll('a');
+                mobileMenuLinks.forEach(link => {
+                    link.addEventListener('click', () => {
+                        mobileMenu.classList.add('hidden');
+                        // 恢复菜单图标
+                        const svg = mobileMenuButton.querySelector('svg');
+                        svg.innerHTML = '<path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16m-7 6h7" />';
+                    });
+                });
+            }
+            // --- End Mobile Menu Logic ---
+            
             // --- Contact Copy Logic ---
             const copyButtons = document.querySelectorAll('.copy-btn');
             
